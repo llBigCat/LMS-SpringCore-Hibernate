@@ -1,5 +1,6 @@
 package com.llbigcat;
 
+import com.llbigcat.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -42,6 +43,26 @@ public class AppConfig {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory().getObject());
         return txManager;
+    }
+
+    @Bean
+    public IAuthorRepository authorRepository() {
+        return new AuthorRepository();
+    }
+
+    @Bean
+    public IBookRepository bookRepository() {
+        return new BookRepository(sessionFactory().getObject());
+    }
+
+    @Bean
+    public IMemberRepository memberRepository() {
+        return new MemberRepository();
+    }
+
+    @Bean
+    public IBorrowingRepository borrowingRepository() {
+        return new BorrowingRepository();
     }
 
 }
