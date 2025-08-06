@@ -13,4 +13,5 @@ public interface IBookRepository {
     boolean update(Book book);
     boolean delete(Book book);
     List<Book> search(Map<String, Object> params);
+    List<Book> topBorrowedBooks(int limit);
 }

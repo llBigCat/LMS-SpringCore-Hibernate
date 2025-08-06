@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.time.LocalDateTime;
 
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class BookRepository implements IBookRepository{
@@ -92,6 +91,17 @@ public class BookRepository implements IBookRepository{
             }
 
             return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
+    @Override
+    public List<Book> topBorrowedBooks(int limit) {
+        try (Session session = sessionFactory.openSession()) {
+            //TODO: Add more
+            return List.of();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
