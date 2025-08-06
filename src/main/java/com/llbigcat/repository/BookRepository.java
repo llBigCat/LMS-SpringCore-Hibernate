@@ -1,7 +1,9 @@
 package com.llbigcat.repository;
 
 import com.llbigcat.entities.Book;
+import com.llbigcat.entities.Borrowing;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -100,13 +102,38 @@ public class BookRepository implements IBookRepository{
     @Override
     public List<Book> topBorrowedBooks(int limit) {
         try (Session session = sessionFactory.openSession()) {
-            //TODO: Add more
-            return List.of();
+            //Create criteria builder
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Book> criteriaQuery = criteriaBuilder.createQuery(Book.class);
+
+            //Set a root table and join
+            Root<Book> root = criteriaQuery.from(Book.class);
+            Join<Book, Borrowing> bookBorrowingJoin = root.join("borrowings", JoinType.LEFT);
+
+            criteriaQuery.groupBy(root.get("id"));
+
+            criteriaQuery.orderBy(criteriaBuilder.desc(criteriaBuilder.count(bookBorrowingJoin)));
+
+            criteriaQuery.select(root);
+
+            return session.createQuery(criteriaQuery).setMaxResults(limit).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
-            return List.of();
         }
+        return List.of();
     }
+
+//    @Override
+//    public List<Book> topBorrowedBooks(int limit) {
+//        try (Session session = sessionFactory.openSession()) {
+//            Query query = session.createQuery("SELECT b FROM Book b ORDER BY b.borrowings.size DESC", Book.class);
+//            query.setMaxResults(limit);
+//            return query.getResultList();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return List.of();
+//        }
+//    }
 
     private static StringBuilder getStringBuilder(Map<String, Object> params) {
         StringBuilder queryBuilder = new StringBuilder("FROM Book b WHERE 1=1");
