@@ -15,7 +15,7 @@ public class AppConfig {
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://127.0.0.1:3306/");
+        ds.setUrl("jdbc:mysql://127.0.0.1:3306/lms");
         ds.setUsername("llbigcat");
         ds.setPassword("Long2203@@");
         return ds;
@@ -31,7 +31,7 @@ public class AppConfig {
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         props.setProperty("hibernate.show_sql", "true");
         props.setProperty("hibernate.format_sql", "true");
-        props.setProperty("hibernate.hbm2ddl.auto", "update");
+        props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
         sessionFactory.setHibernateProperties(props);
         return sessionFactory;

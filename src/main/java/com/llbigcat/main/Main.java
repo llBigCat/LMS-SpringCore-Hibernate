@@ -1,19 +1,13 @@
 package com.llbigcat.main;
 
+import com.llbigcat.AppConfig;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-
-    }
-
-    public static void testAppConfig() {
-    }
-
-    public static void testApplicationXml() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
-        SessionFactory sessionFactory = context.getBean("sessionFactory", SessionFactory.class);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        SessionFactory sessionFactory = ctx.getBean(SessionFactory.class);
     }
 }
