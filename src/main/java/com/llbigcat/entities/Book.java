@@ -31,6 +31,7 @@ public class Book {
     @Column(name="created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Version
     @Column(name="version", nullable = false)
     private Integer version;
 

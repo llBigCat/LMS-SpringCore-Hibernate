@@ -32,7 +32,7 @@ public class AppConfig {
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         props.setProperty("hibernate.show_sql", "true");
         props.setProperty("hibernate.format_sql", "true");
-        props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        props.setProperty("hibernate.hbm2ddl.auto", "update");
 
         sessionFactory.setHibernateProperties(props);
         return sessionFactory;
@@ -57,7 +57,7 @@ public class AppConfig {
 
     @Bean
     public IMemberRepository memberRepository() {
-        return new MemberRepository();
+        return new MemberRepository(sessionFactory().getObject());
     }
 
     @Bean

@@ -28,6 +28,7 @@ public class Member {
     @Column(name="phone", nullable = false, columnDefinition = "CHAR(15)")
     private String phone;
 
+    @Version
     @Column(name="version", nullable = false)
     private Integer version;
 

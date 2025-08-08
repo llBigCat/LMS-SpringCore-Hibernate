@@ -4,6 +4,7 @@ import com.llbigcat.entities.Book;
 import com.llbigcat.entities.Borrowing;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@Transactional
 public class BookRepository implements IBookRepository{
     private final SessionFactory sessionFactory;
     @Override
