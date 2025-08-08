@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-@Transactional
 public class MemberRepository implements IMemberRepository{
 
     private final SessionFactory sessionFactory;

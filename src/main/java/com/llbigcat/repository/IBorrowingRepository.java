@@ -1,5 +1,8 @@
 package com.llbigcat.repository;
 
-public interface IBorrowingRepository {
+import com.llbigcat.entities.Borrowing;
 
+public interface IBorrowingRepository {
+    boolean save(Borrowing borrowing);
+    boolean update(Borrowing borrowing);
 }

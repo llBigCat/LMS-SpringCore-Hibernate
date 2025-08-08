@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-@Transactional
 public class BookRepository implements IBookRepository{
     private final SessionFactory sessionFactory;
     @Override

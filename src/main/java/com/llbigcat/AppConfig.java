@@ -62,7 +62,7 @@ public class AppConfig {
 
     @Bean
     public IBorrowingRepository borrowingRepository() {
-        return new BorrowingRepository();
+        return new BorrowingRepository(sessionFactory().getObject());
     }
 
 }
