@@ -1,5 +1,6 @@
 package com.llbigcat.entities;
 
+import com.llbigcat.dtos.OverDueBorrowingDTO;
 import com.llbigcat.entities.enums.BookStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,6 +14,23 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@SqlResultSetMapping(
+        name = "OverDueBorrowingMapping",
+        classes = @ConstructorResult(
+                targetClass = OverDueBorrowingDTO.class,
+                columns = {
+                        @ColumnResult(name = "borrowDate", type = LocalDateTime.class),
+                        @ColumnResult(name = "dueDate", type = LocalDateTime.class),
+                        @ColumnResult(name = "memberId", type = Long.class),
+                        @ColumnResult(name = "memberName", type = String.class),
+                        @ColumnResult(name = "memberEmail", type = String.class),
+                        @ColumnResult(name = "memberPhone", type = String.class),
+                        @ColumnResult(name = "bookId", type = Long.class),
+                        @ColumnResult(name = "bookTitle", type = String.class),
+                        @ColumnResult(name = "bookCategory", type = String.class)
+                }
+        )
+)
 public class Borrowing {
     @EmbeddedId
     private BorrowingId id;

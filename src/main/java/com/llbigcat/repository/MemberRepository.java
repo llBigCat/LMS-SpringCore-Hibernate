@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -74,16 +75,15 @@ public class MemberRepository implements IMemberRepository{
     }
 
     @Override
-    public Optional<Member> findByName(String name) {
+    public List<Member> findByName(String name) {
         try(Session session = sessionFactory.openSession()){
             Query query = session.createQuery("FROM Member m WHERE m.name LIKE :name", Member.class);
             query.setParameter("name", "%" + name + "%");
-            Member member = (Member) query.getSingleResult();
-            return Optional.ofNullable(member);
+            return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Optional.empty();
+        return List.of();
     }
 
     @Override
